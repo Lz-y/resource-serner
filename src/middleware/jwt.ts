@@ -16,16 +16,23 @@ export class CheckToken implements KoaMiddlewareInterface {
       }
     }
     const token = auth!.split(' ')[1]
-    jwt.verify(token, Config.encrypt, (err) => {
-      if (err) {
+    try {
+      const decoded = jwt.verify(token, Config.encrypt) as jwt.JwtPayload
+      if (decoded.exp! <= (Date.now() + 7 * 24 * 3600) / 1000) {
         ctx.status = 401
         ctx.body = {
           code: ResponseCode.UNAUTH,
           msg: 'token 无效，请重新登录'
         }
       }
-      return next()
-    })
+    } catch (error) {
+      ctx.status = 401
+      ctx.body = {
+        code: ResponseCode.UNAUTH,
+        msg: 'token 无效，请重新登录'
+      }
+    }
+    return next()
   }
 }
 

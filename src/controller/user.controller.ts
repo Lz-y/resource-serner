@@ -1,9 +1,10 @@
 import {Service} from 'typedi'
 import { Context } from 'koa'
-import {JsonController, Param, Body, Get, Post, Put, Delete, Ctx} from 'routing-controllers'
+import {JsonController, Param, Body, Get, Post, Put, Delete, Ctx, UseBefore} from 'routing-controllers'
 
 import {User, PageType, ResponseCode} from '../../types/global'
 import UserService, {Query} from '../service/user.service'
+import { Cors } from '../middleware/cors'
 
 @JsonController()
 @Service()
@@ -45,6 +46,7 @@ export class UserController {
   }
 
   @Post('/login')
+  @UseBefore(Cors)
   async login (@Body() user: Pick<User, 'account' | 'psw'>) {
     try {
       let info = await this.userService.findOne(user.account)
