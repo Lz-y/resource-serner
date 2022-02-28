@@ -1,1 +1,1 @@
-# resource-serner
+# resource-server
