@@ -1,6 +1,6 @@
 export default {
   db: {
-    url: 'mongodb://localhost:27017/resource-manage'
+    url: 'mongodb://lzy:123456@localhost:27017/resource-manage?authSource=resource-manage'
   },
   deply: {
 

@@ -4,7 +4,7 @@ import {JsonController, Param, Body, Get, Post, Put, Delete, Ctx, UseBefore} fro
 
 import {User, PageType, ResponseCode} from '../../types/global'
 import UserService, {Query} from '../service/user.service'
-import { Cors } from '../middleware/cors'
+// import { Cors } from '../middleware/cors'
 
 @JsonController()
 @Service()
@@ -46,7 +46,7 @@ export class UserController {
   }
 
   @Post('/login')
-  @UseBefore(Cors)
+  // @UseBefore(Cors)
   async login (@Body() user: Pick<User, 'account' | 'psw'>) {
     try {
       let info = await this.userService.findOne(user.account)
