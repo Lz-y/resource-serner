@@ -77,7 +77,7 @@ export class UserController {
     }
   }
 
-  @Post('/user')
+  @Post('/register')
   async register (@Body() user:  Pick<User, 'account' | 'psw' | 'email'>) {
     try {
       const data = await this.userService.create(user)
