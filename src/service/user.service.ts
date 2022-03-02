@@ -32,7 +32,7 @@ export default class UserService {
     const skip = (page - 1) * size
 
     try {
-      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).exec()
+      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).lean().exec()
       const total = await this.model.count(query).exec()
       return {
         data,
@@ -54,16 +54,7 @@ export default class UserService {
 
   async updateById (id: ObjectId, user: Partial<User>): Promise<boolean> {
     try {
-      await this.model.findByIdAndUpdate(id, user)
-      return true
-    } catch (error) {
-      throw error
-    }
-  }
-
-  async deleteById (id: ObjectId): Promise<boolean> {
-    try {
-      await this.model.findByIdAndDelete(id)
+      await this.model.findByIdAndUpdate(id, user).exec()
       return true
     } catch (error) {
       throw error

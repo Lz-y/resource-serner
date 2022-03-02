@@ -29,7 +29,7 @@ export class ProjectController {
       const datas = await this.projectService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        data: datas
+        result: datas
       }
     } catch (error) {
       console.error(error)
@@ -58,7 +58,7 @@ export class ProjectController {
   }
 
   @Put('/project/:id')
-  async modify (@Param('id') id: any, log: Partial<Project>) {
+  async modify (@Param('id') id: string, log: Partial<Project>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -66,7 +66,7 @@ export class ProjectController {
       }
     }
     try {
-      await this.projectService.updateById(id, log)
+      await this.projectService.updateById(id as any, log)
 
       return {
         code: ResponseCode.SUCCESS,
@@ -82,7 +82,7 @@ export class ProjectController {
   }
 
   @Delete('/project/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -90,7 +90,7 @@ export class ProjectController {
       }
     }
     try {
-      const flag = await this.projectService.updateById(id, {})
+      const flag = await this.projectService.deleteById(id as any)
 
       if (!flag) {
         return {

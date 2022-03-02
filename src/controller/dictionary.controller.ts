@@ -29,7 +29,7 @@ export class DictionaryController {
       const datas = await this.dictionaryService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        data: datas
+        result: datas
       }
     } catch (error) {
       console.error(error)
@@ -58,7 +58,7 @@ export class DictionaryController {
   }
 
   @Put('/dictionary/:id')
-  async modify (@Param('id') id: any, dict: Partial<Dictionary>) {
+  async modify (@Param('id') id: string, dict: Partial<Dictionary>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -66,7 +66,7 @@ export class DictionaryController {
       }
     }
     try {
-      await this.dictionaryService.updateById(id, dict)
+      await this.dictionaryService.updateById(id as any, dict)
 
       return {
         code: ResponseCode.SUCCESS,
@@ -82,7 +82,7 @@ export class DictionaryController {
   }
 
   @Delete('/dictionary/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -90,7 +90,7 @@ export class DictionaryController {
       }
     }
     try {
-      const flag = await this.dictionaryService.updateById(id, {})
+      const flag = await this.dictionaryService.deleteById(id as any)
 
       if (!flag) {
         return {

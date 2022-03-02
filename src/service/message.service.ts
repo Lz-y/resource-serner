@@ -22,7 +22,7 @@ export default class MessageService {
 
     const skip = (page - 1) * size
     try {
-      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).exec()
+      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).lean().exec()
       const total = await this.model.count(query).exec()
 
       return {
@@ -36,7 +36,7 @@ export default class MessageService {
 
   async updateById (id: ObjectId, message: Partial<Message>) {
     try {
-      await this.model.findByIdAndUpdate(id, message)
+      await this.model.findByIdAndUpdate(id, message).exec()
       return true
     } catch (error) {
       throw error

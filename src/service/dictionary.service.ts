@@ -16,7 +16,7 @@ export default class DictionaryService {
     const skip = (page - 1) * size
 
     try {
-      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).exec()
+      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).lean().exec()
       const total = await this.model.count(query).exec()
 
       return {
@@ -39,7 +39,7 @@ export default class DictionaryService {
 
   async updateById (id: ObjectId, dict: Partial<Dictionary>) {
     try {
-      await this.model.findByIdAndUpdate(id, dict)
+      await this.model.findByIdAndUpdate(id, dict).exec()
       return true
     } catch (error) {
       throw error
@@ -48,7 +48,7 @@ export default class DictionaryService {
 
   async deleteById (id: ObjectId) {
     try {
-      await this.model.findByIdAndDelete(id)
+      await this.model.findByIdAndDelete(id).exec()
       return true
     } catch (error) {
       throw error

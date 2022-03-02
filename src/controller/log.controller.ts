@@ -34,7 +34,7 @@ export class LogController {
       const datas = await this.logService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        data: datas
+        result: datas
       }
     } catch (error) {
       console.error(error)
@@ -63,7 +63,7 @@ export class LogController {
   }
 
   @Put('/log/:id')
-  async modify (@Param('id') id: any, log: Partial<Logs>) {
+  async modify (@Param('id') id: string, log: Partial<Logs>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -71,7 +71,7 @@ export class LogController {
       }
     }
     try {
-      await this.logService.updateById(id, log)
+      await this.logService.updateById(id as any, log)
 
       return {
         code: ResponseCode.SUCCESS,
@@ -87,7 +87,7 @@ export class LogController {
   }
 
   @Delete('/log/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -95,7 +95,7 @@ export class LogController {
       }
     }
     try {
-      const flag = await this.logService.updateById(id, {})
+      const flag = await this.logService.deleteById(id as any)
 
       if (!flag) {
         return {

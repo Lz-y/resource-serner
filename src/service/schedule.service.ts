@@ -15,7 +15,7 @@ export default class ScheduleService {
   async findAll (query: Partial<Query>, page: number, size: number) {
     const skip = (page - 1) * size
     try {
-      const data = await this.model.find(query).sort({createtime: -1}).limit(size).skip(skip).exec()
+      const data = await this.model.find(query).sort({createtime: -1}).limit(size).skip(skip).lean().exec()
 
       const total = await this.model.count(query).exec()
 
@@ -39,7 +39,16 @@ export default class ScheduleService {
 
   async updateById (id: ObjectId, schedule: Partial<Schedule>) {
     try {
-      await this.model.findByIdAndUpdate(id, schedule)
+      await this.model.findByIdAndUpdate(id, schedule).exec()
+      return true
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async deleteById (id: ObjectId) {
+    try {
+      await this.model.findByIdAndDelete(id).exec()
       return true
     } catch (error) {
       throw error

@@ -33,7 +33,7 @@ export class ResourceController {
       const datas = await this.resourceService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        data: datas
+        result: datas
       }
     } catch (error) {
       console.error(error)
@@ -62,7 +62,7 @@ export class ResourceController {
   }
 
   @Put('/resource/:id')
-  async modify (@Param('id') id: any, log: Partial<Resource>) {
+  async modify (@Param('id') id: string, log: Partial<Resource>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -70,7 +70,7 @@ export class ResourceController {
       }
     }
     try {
-      await this.resourceService.updateById(id, log)
+      await this.resourceService.updateById(id as any, log)
 
       return {
         code: ResponseCode.SUCCESS,
@@ -86,7 +86,7 @@ export class ResourceController {
   }
 
   @Delete('/resource/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -94,7 +94,7 @@ export class ResourceController {
       }
     }
     try {
-      const flag = await this.resourceService.updateById(id, {})
+      const flag = await this.resourceService.deleteById(id as any)
 
       if (!flag) {
         return {

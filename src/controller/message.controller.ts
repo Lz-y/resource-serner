@@ -34,7 +34,7 @@ export class MessageController {
       const datas = await this.messageService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        data: datas
+        result: datas
       }
     } catch (error) {
       console.error(error)
@@ -64,7 +64,7 @@ export class MessageController {
   }
 
   @Put('/message/:id')
-  async modify (@Param('id') id: any, message: Partial<Message>) {
+  async modify (@Param('id') id: string, message: Partial<Message>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -72,7 +72,7 @@ export class MessageController {
       }
     }
     try {
-      await this.messageService.updateById(id, message)
+      await this.messageService.updateById(id as any, message)
 
       return {
         code: ResponseCode.SUCCESS,
@@ -88,7 +88,7 @@ export class MessageController {
   }
 
   @Delete('/message/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -96,7 +96,7 @@ export class MessageController {
       }
     }
     try {
-      const flag = await this.messageService.updateById(id, {})
+      const flag = await this.messageService.updateById(id as any, {})
 
       if (!flag) {
         return {

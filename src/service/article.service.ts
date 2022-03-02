@@ -41,15 +41,6 @@ export default class ArticleService {
     }
   }
 
-  async deleteById (id: ObjectId): Promise<boolean> {
-    try {
-      await this.model.findByIdAndDelete(id)
-      return true
-    } catch (error) {
-      throw error
-    }
-  }
-
   async updateById (id: ObjectId, article: Partial<Article>): Promise<boolean> {
     try {
       await this.model.findByIdAndUpdate(id, article).exec()

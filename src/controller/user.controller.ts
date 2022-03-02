@@ -34,7 +34,7 @@ export class UserController {
       const datas = await this.userService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        ...datas
+        result: datas
       }
     } catch (error) {
       console.error(error)
@@ -102,7 +102,7 @@ export class UserController {
   }
 
   @Put('/user/:id')
-  async modify (@Param('id') id: any, @Body() user: Partial<User>) {
+  async modify (@Param('id') id: string, @Body() user: Partial<User>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -110,7 +110,7 @@ export class UserController {
       }
     }
     try {
-      const flag = await this.userService.updateById(id, user)
+      const flag = await this.userService.updateById(id as any, user)
       if (!flag) {
         return {
           code: ResponseCode.FAIL,
@@ -131,7 +131,7 @@ export class UserController {
   }
 
   @Delete('/user/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -139,7 +139,7 @@ export class UserController {
       }
     }
     try {
-      const flag = await this.userService.deleteById(id)
+      const flag = await this.userService.updateById(id as any, {deleted: true})
 
       if (!flag) {
         return {

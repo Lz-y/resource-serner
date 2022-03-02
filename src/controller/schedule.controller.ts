@@ -33,7 +33,7 @@ export class ScheduleController {
       const datas = await this.scheduleService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        data: datas
+        result: datas
       }
     } catch (error) {
       console.error(error)
@@ -62,7 +62,7 @@ export class ScheduleController {
   }
 
   @Put('/schedule/:id')
-  async modify (@Param('id') id: any, schedule: Partial<Schedule>) {
+  async modify (@Param('id') id: string, schedule: Partial<Schedule>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -70,7 +70,7 @@ export class ScheduleController {
       }
     }
     try {
-      await this.scheduleService.updateById(id, schedule)
+      await this.scheduleService.updateById(id as any, schedule)
 
       return {
         code: ResponseCode.SUCCESS,
@@ -86,7 +86,7 @@ export class ScheduleController {
   }
 
   @Delete('/schedule/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -94,7 +94,7 @@ export class ScheduleController {
       }
     }
     try {
-      const flag = await this.scheduleService.updateById(id, {})
+      const flag = await this.scheduleService.deleteById(id as any)
 
       if (!flag) {
         return {

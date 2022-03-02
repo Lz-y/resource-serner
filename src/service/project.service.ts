@@ -13,7 +13,7 @@ export default class ProjectService {
   async findAll (query: Partial<Query>, page: number, size: number) {
     const skip = (page - 1) * size
     try {
-      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).exec()
+      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).lean().exec()
       const total = await this.model.count(query).exec()
 
       return {
@@ -36,7 +36,16 @@ export default class ProjectService {
   
   async updateById (id: ObjectId, project: Partial<Project>) {
     try {
-      await this.model.findByIdAndUpdate(id, project)
+      await this.model.findByIdAndUpdate(id, project).exec()
+      return true
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async deleteById (id: ObjectId) {
+    try {
+      await this.model.findByIdAndDelete(id).exec()
       return true
     } catch (error) {
       throw error
