@@ -7,7 +7,8 @@ const projectScheme = new Schema<Project>({
   img: String,
   description: String,
   runningTime: Number,
-  status: {type: Number, default: 0}
+  status: {type: Number, default: 0},
+  deleted: {type: Boolean, default: false}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}

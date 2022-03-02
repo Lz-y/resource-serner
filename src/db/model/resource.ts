@@ -10,7 +10,8 @@ const resourceScheme = new Schema<Resource>({
   summary: String,
   encrypt: {type: Number, default: 1},
   psw: {type: String, maxlength: 10, minlength: 6},
-  status: {type: Number, default: 0}
+  status: {type: Number, default: 0},
+  deleted: {type: Boolean, default: false}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}

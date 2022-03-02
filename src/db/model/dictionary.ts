@@ -6,7 +6,8 @@ const dictionaryScheme = new Schema<Dictionary>({
   name: String,
   type: String,
   children: [{type: Schema.Types.ObjectId, ref: 'Dictionary'}],
-  status: {type: Number, default: 1}
+  status: {type: Number, default: 1},
+  deleted: {type: Boolean, default: false}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}

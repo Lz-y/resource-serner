@@ -7,7 +7,8 @@ const scheduleScheme = new Schema<Message>({
   content: {type: String, maxlength: 1000},
   replyTime: Date,
   replyStatus: {type: Number, default: 0},
-  status: {type: Number, default: 0}
+  status: {type: Number, default: 0},
+  deleted: {type: Boolean, default: false}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'publishTime', updatedAt: 'updateTime'}

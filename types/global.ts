@@ -99,7 +99,8 @@ export interface Project {
   description: string;
   createTime: Date;
   runningTime: number;
-  status: ProjectStatus
+  status: ProjectStatus;
+  deleted: boolean;
 }
 
 export interface Resource {
@@ -127,6 +128,7 @@ export interface Dictionary {
   type: string;
   children: Dictionary[];
   status: OrdinaryStatus;
+  deleted: boolean;
 }
 
 export interface User {

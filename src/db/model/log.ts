@@ -7,7 +7,8 @@ const logScheme = new Schema<Logs>({
   userAgent: String,
   url: String,
   requestStatus: {type: Number, default: 200},
-  status: {type: Number, default: 0}
+  status: {type: Number, default: 0},
+  deleted: {type: Boolean, default: false}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'requestTime', updatedAt: 'updateTime'}

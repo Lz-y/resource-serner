@@ -10,7 +10,8 @@ const userScheme = new Schema<User>({
   email: String,
   status: {type: Number, default: 1},
   fristLogin: {type: Boolean, default: true},
-  lastLoginTime: Number
+  lastLoginTime: Schema.Types.Date,
+  deleted: {type: Boolean, default: false}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}
