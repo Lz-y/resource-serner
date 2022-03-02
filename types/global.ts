@@ -69,7 +69,8 @@ export interface Article{
   viewNum: number;
   commentNum: number;
   likeNum: number;
-  content: string
+  content: string;
+  deleted: boolean;
 }
 
 export interface Logs {
@@ -78,7 +79,8 @@ export interface Logs {
   url: string;
   requestTime: Date;
   requestStatus: 200 | 401 | 402 | 404 | 500;
-  status: LogStatus
+  status: LogStatus;
+  deleted: boolean;
 }
 
 export interface Message {
@@ -88,6 +90,7 @@ export interface Message {
   replyStatus: ReplyStatus;
   replyTime: Date;
   status: OrdinaryStatus;
+  deleted: boolean;
 }
 
 export interface Project {
@@ -108,6 +111,7 @@ export interface Resource {
   encrypt: EncryptStatus;
   psw: string;
   status: OrdinaryStatus;
+  deleted: boolean;
 }
 
 export interface Schedule {
@@ -115,7 +119,7 @@ export interface Schedule {
   summary: string;
   spend: Date[];
   status: ScheduleStatus;
-
+  deleted: boolean;
 }
 
 export interface Dictionary {
@@ -135,4 +139,5 @@ export interface User {
   fristLogin: boolean;
   lastLoginTime: number;
   createTime: Date;
+  deleted: boolean;
 }

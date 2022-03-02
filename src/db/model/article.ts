@@ -14,7 +14,8 @@ const articleScheme = new Schema<Article>({
   likeNum: {type: Number, default: 0},
   psw: {type: String, maxlength: 10, minlength: 6},
   status: {type: Number, default: 0},
-  publishTime: Date
+  publishTime: Date,
+  deleted: {type: Boolean, default: false}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}

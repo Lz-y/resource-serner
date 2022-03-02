@@ -38,7 +38,7 @@ export class ArticleController {
       const data = await this.articleService.findAll(params, page, size)
       return {
         code: ResponseCode.SUCCESS,
-        data
+        result: data
       }
     } catch (error) {
       console.error(error)
@@ -50,7 +50,7 @@ export class ArticleController {
   }
 
   @Get('/article/:id')
-  async one (@Param('id') id: any, @Ctx() ctx: Context) {
+  async one(@Param('id') id: string, @Ctx() ctx: Context) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -62,7 +62,7 @@ export class ArticleController {
     // const userAgent = ctx.headers['user-agent']
 
     try {
-      const data = await this.articleService.findById(id)
+      const data = await this.articleService.findById(id as any)
 
       if (data && !data._id) {
         return {
@@ -107,7 +107,7 @@ export class ArticleController {
   }
 
   @Put('/article/:id')
-  async modify (@Param('id') id: any, @Body() article: Partial<Article>) {
+  async modify (@Param('id') id: string, @Body() article: Partial<Article>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -115,7 +115,7 @@ export class ArticleController {
       }
     }
     try {
-      await this.articleService.updateById(id, article)
+      await this.articleService.updateById(id as any, article)
 
       return {
         code: ResponseCode.SUCCESS,
@@ -131,7 +131,7 @@ export class ArticleController {
   }
 
   @Delete('/article/:id')
-  async delOne (@Param('id') id: any) {
+  async delOne (@Param('id') id: string) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -139,7 +139,7 @@ export class ArticleController {
       }
     }
     try {
-      const flag = await this.articleService.deleteById(id)
+      const flag = await this.articleService.updateById(id as any, {deleted: true})
       if (!flag) {
         return {
           code: ResponseCode.FAIL,
