@@ -16,7 +16,10 @@ export default class DictionaryService {
     const skip = (page - 1) * size
 
     try {
-      const data = await this.model.find(query).sort({createTime: -1}).limit(size).skip(skip).lean().exec()
+      const data = await this.model.find(query).sort({createTime: -1}).select('-createTime -updateTime').limit(size).skip(skip).lean().exec()
+      data.forEach(item => {
+        item._id = item._id.toString() as any
+      })
       const total = await this.model.count(query).exec()
 
       return {

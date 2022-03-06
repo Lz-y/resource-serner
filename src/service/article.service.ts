@@ -13,7 +13,10 @@ export default class ArticleService {
   async findAll (query: Partial<Query>, page: number, size: number) {
     const skip = (page - 1) * size
     try {
-      const data = await this.model.find(query).sort({ createTime: -1 }).limit(size).skip(skip).lean().exec()
+      const data = await this.model.find(query).select('-content -updateTime').sort({ createTime: -1 }).limit(size).skip(skip).lean().exec()
+      data.forEach(item => {
+        item._id = item._id.toString() as any
+      })
       const total = await this.model.count(query).exec()
       return {
         data,
@@ -26,7 +29,9 @@ export default class ArticleService {
 
   async findById (id: ObjectId) {
     try {
-      return await this.model.findByIdAndUpdate(id, { $inc: { viewNum: 1 } }).lean().exec()
+      const doc = await this.model.findByIdAndUpdate(id, { $inc: { viewNum: 1 } }).select('title classify content img tags encrypt status').lean().exec()
+      doc!._id = doc?._id.toString() as any
+      return doc
     } catch (error) {
       throw error
     }

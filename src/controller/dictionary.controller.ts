@@ -1,6 +1,7 @@
 import {Context} from 'koa'
 import {Service} from 'typedi'
 import {JsonController, Param, Body, Get, Post, Put, Delete, Ctx} from 'routing-controllers'
+import {ProjectionFields} from 'mongoose'
 
 import {Dictionary, PageType, ResponseCode} from '../../types/global'
 import DictionaryService, {Query} from '../service/dictionary.service'
@@ -16,14 +17,14 @@ export class DictionaryController {
     const query = ctx.query as unknown as Partial<Query & PageType>
     const {name, status, page = 1, size = 10} = query
 
-    const params: Partial<Query> = {}
+    const params: ProjectionFields<Dictionary> = {}
 
     if (name) {
       params.name = new RegExp(name, 'i') as any
     }
 
-    if (status !== undefined) {
-      params.status = status
+    if (status && status !== undefined) {
+      params.status = parseInt(status as any, 10)
     }
     try {
       const datas = await this.dictionaryService.findAll(params, page, size)
@@ -46,7 +47,7 @@ export class DictionaryController {
       await this.dictionaryService.create(dict)
       return {
         code: ResponseCode.SUCCESS,
-        msg: '新增成功'
+        msg: '新增字典成功'
       }
     } catch (error) {
       console.error(error)
@@ -70,7 +71,7 @@ export class DictionaryController {
 
       return {
         code: ResponseCode.SUCCESS,
-        msg: '更新成功'
+        msg: '字典更新成功'
       }
     } catch (error) {
       console.error(error)

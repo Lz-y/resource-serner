@@ -7,14 +7,14 @@ POST http://localhost:3060/api/article HTTP/1.1
 content-type: application/json
 
 {
-  "title": "vue3",
-  "classify": "blog",
-  "tags": ["vue"],
-  "content": "vue3 基本用法"
+  "title": "3.6",
+  "classify": "daily",
+  "tags": ["日常"],
+  "content": "日常"
 }
 
 ###
-GET http://localhost:3060/api/article/621e3be0c6c8331ad799f5ea HTTP/1.1
+GET http://localhost:3060/api/article/6223320755255efedba2402e HTTP/1.1
 content-type: application/json
 
 ###
@@ -28,3 +28,17 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3060/api/article/621e3be0c6c8331ad799f5ea HTTP/1.1
 Content-Type: application/json
+
+
+###
+GET http://localhost:3060/api/dictionaries?page=1&size=10 HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3060/api/dictionary HTTP/1.1
+content-type: application/json
+
+{
+  "name": "标签",
+  "type": "vue"
+}

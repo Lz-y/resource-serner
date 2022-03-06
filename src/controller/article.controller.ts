@@ -1,6 +1,7 @@
 import {JsonController, Param, Body, Get, Post, Put, Delete, Ctx} from 'routing-controllers'
 import {Service} from 'typedi'
 import { Context } from 'koa'
+import {ProjectionFields} from 'mongoose'
 
 import ArticleService, {Query} from '../service/article.service'
 
@@ -18,21 +19,21 @@ export class ArticleController {
     const query = ctx.query as unknown as Partial<Query & PageType>
 
     const {title, classify, tags, encrypt, status, page = 1, size = 10} = query
-    const params: Partial<Query> = {}
+    const params: ProjectionFields<Article> = {}
     if (title) {
       params['title'] = new RegExp(title, 'i') as any
     }
     if (classify) {
       params.classify = classify
     }
-    if (tags && tags.length !== 0) {
-      params.tags = tags
+    if (tags) {
+      params.tags = {$in: (tags as unknown as string).split(',')}
     }
-    if (encrypt !== undefined) {
-      params.encrypt = encrypt
+    if (encrypt && encrypt !== undefined) {
+      params.encrypt = parseInt(encrypt as any, 10)
     }
-    if (status !== undefined) {
-      params.status = status
+    if (status && status !== undefined) {
+      params.status = parseInt(status as any, 10)
     }
     try {
       const data = await this.articleService.findAll(params, page, size)
@@ -95,7 +96,7 @@ export class ArticleController {
       await this.articleService.create(article)
       return {
         code: ResponseCode.SUCCESS,
-        msg: '创建成功'
+        msg: '成功添加文章，是否返回上一页？'
       }
     } catch (error) {
       console.error(error)
@@ -119,7 +120,7 @@ export class ArticleController {
 
       return {
         code: ResponseCode.SUCCESS,
-        msg: '更新成功'
+        msg: '文章已更新，是否返回上一页？'
       }
     } catch (error) {
       console.error(error)
