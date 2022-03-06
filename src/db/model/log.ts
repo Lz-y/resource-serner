@@ -8,10 +8,13 @@ const logScheme = new Schema<Logs>({
   url: String,
   requestStatus: {type: Number, default: 200},
   status: {type: Number, default: 0},
-  deleted: {type: Boolean, default: false}
+  deleted: {type: Boolean, default: false, select: false}
 }, {
   versionKey: false,
-  timestamps: {createdAt: 'requestTime', updatedAt: 'updateTime'}
+  timestamps: {createdAt: 'requestTime', updatedAt: 'updateTime'},
+  id: true,
+  toJSON: {virtuals: true},
+  toObject: {virtuals: true}
 })
 
 export default model<Logs>('log', logScheme)

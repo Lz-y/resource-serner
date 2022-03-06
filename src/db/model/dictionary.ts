@@ -1,4 +1,4 @@
-import {Schema, model, ObjectId} from "mongoose"
+import {Schema, model} from "mongoose"
 
 import {Dictionary} from '../../../types/global'
 
@@ -7,10 +7,13 @@ const dictionaryScheme = new Schema<Dictionary>({
   type: String,
   children: [{type: Schema.Types.ObjectId, ref: 'Dictionary'}],
   status: {type: Number, default: 1},
-  deleted: {type: Boolean, default: false}
+  deleted: {type: Boolean, default: false, select: false}
 }, {
+  id: true,
   versionKey: false,
-  timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}
+  timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'},
+  toJSON: {virtuals: true},
+  toObject: {virtuals: true}
 })
 
 export default model<Dictionary>('dictionary', dictionaryScheme)

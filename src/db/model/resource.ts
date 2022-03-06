@@ -9,12 +9,15 @@ const resourceScheme = new Schema<Resource>({
   classify: String,
   summary: String,
   encrypt: {type: Number, default: 1},
-  psw: {type: String, maxlength: 10, minlength: 6},
+  psw: {type: String, maxlength: 10, minlength: 6, select: false},
   status: {type: Number, default: 0},
-  deleted: {type: Boolean, default: false}
+  deleted: {type: Boolean, default: false, select: false}
 }, {
   versionKey: false,
-  timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}
+  timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'},
+  id: true,
+  toJSON: {virtuals: true},
+  toObject: {virtuals: true}
 })
 
 export default model<Resource>('resource', resourceScheme)

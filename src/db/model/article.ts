@@ -12,13 +12,16 @@ const articleScheme = new Schema<Article>({
   viewNum: {type: Number, default: 0},
   commentNum: {type: Number, default: 0},
   likeNum: {type: Number, default: 0},
-  psw: {type: String, maxlength: 10, minlength: 6},
+  psw: {type: String, maxlength: 10, minlength: 6, select: false},
   status: {type: Number, default: 0},
   publishTime: Date,
-  deleted: {type: Boolean, default: false}
+  deleted: {type: Boolean, default: false, select: false}
 }, {
+  id: true,
   versionKey: false,
-  timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}
+  timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'},
+  toJSON: {virtuals: true},
+  toObject: {virtuals: true}
 })
 
 

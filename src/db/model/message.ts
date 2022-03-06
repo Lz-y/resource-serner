@@ -8,10 +8,13 @@ const scheduleScheme = new Schema<Message>({
   replyTime: Date,
   replyStatus: {type: Number, default: 0},
   status: {type: Number, default: 0},
-  deleted: {type: Boolean, default: false}
+  deleted: {type: Boolean, default: false, select: false}
 }, {
   versionKey: false,
-  timestamps: {createdAt: 'publishTime', updatedAt: 'updateTime'}
+  timestamps: {createdAt: 'publishTime', updatedAt: 'updateTime'},
+  id: true,
+  toJSON: {virtuals: true},
+  toObject: {virtuals: true}
 })
 
 export default model<Message>('message', scheduleScheme)

@@ -57,6 +57,7 @@ export enum ResponseCode {
 export type Query<T, K extends keyof T> = Partial<Pick<T, K>>
 
 export interface Article{
+  id: string;
   title: string;
   classify: 'blog' | 'note' | 'daily';
   tags: string[];
