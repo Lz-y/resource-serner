@@ -127,11 +127,16 @@ export interface Schedule {
 export interface Dictionary {
   name: string;
   type: string;
-  children: Dictionary[];
+  children: KeyMap[];
   status: OrdinaryStatus;
   deleted: boolean;
+  description: string
 }
 
+export interface KeyMap {
+  label: string
+  value: any
+}
 export interface User {
   account: string;
   psw: string;

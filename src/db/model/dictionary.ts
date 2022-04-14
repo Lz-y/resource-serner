@@ -1,12 +1,13 @@
 import {Schema, model} from "mongoose"
 
-import {Dictionary} from '../../../types/global'
+import {Dictionary, KeyMap} from '../../../types/global'
 
 const dictionaryScheme = new Schema<Dictionary>({
   name: String,
   type: String,
-  children: [{type: Schema.Types.ObjectId, ref: 'Dictionary'}],
+  children: [],
   status: {type: Number, default: 1},
+  description: {type: String, maxlength: 150},
   deleted: {type: Boolean, default: false, select: false}
 }, {
   id: true,
