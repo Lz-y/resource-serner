@@ -6,7 +6,7 @@ const logScheme = new Schema<Logs>({
   ip: String,
   userAgent: String,
   url: String,
-  requestStatus: {type: Number, default: 200},
+  code: {type: Number},
   status: {type: Number, default: 0},
   deleted: {type: Boolean, default: false, select: false}
 }, {

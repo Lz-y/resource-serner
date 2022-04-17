@@ -15,12 +15,12 @@ export class MessageController {
   @Get('/messages')
   async all (@Ctx() ctx: Context) {
     const query = ctx.query as unknown as Partial<Query & PageType>
-    const {title, replyStatus, status, page = 1, size = 10} = query
+    const {message, replyStatus, status, page = 1, size = 10} = query
 
     const params: Partial<Query> = {}
 
-    if (title) {
-      params.title = new RegExp(title, 'i') as any
+    if (message) {
+      params.message = new RegExp(message, 'i') as any
     }
 
     if (replyStatus !== undefined) {
@@ -64,7 +64,7 @@ export class MessageController {
   }
 
   @Put('/message/:id')
-  async modify (@Param('id') id: string, message: Partial<Message>) {
+  async modify (@Param('id') id: string, @Body() message: Partial<Message>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -96,7 +96,7 @@ export class MessageController {
       }
     }
     try {
-      const flag = await this.messageService.updateById(id as any, {})
+      const flag = await this.messageService.delById(id as any)
 
       if (!flag) {
         return {

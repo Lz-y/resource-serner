@@ -59,7 +59,7 @@ export class DictionaryController {
   }
 
   @Put('/dictionary/:id')
-  async modify (@Param('id') id: string, dict: Partial<Dictionary>) {
+  async modify (@Param('id') id: string, @Body() dict: Partial<Dictionary>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,

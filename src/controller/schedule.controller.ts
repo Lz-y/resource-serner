@@ -62,7 +62,7 @@ export class ScheduleController {
   }
 
   @Put('/schedule/:id')
-  async modify (@Param('id') id: string, schedule: Partial<Schedule>) {
+  async modify (@Param('id') id: string, @Body() schedule: Partial<Schedule>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,

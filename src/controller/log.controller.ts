@@ -14,7 +14,7 @@ export class LogController {
   @Get('/logs')
   async all (@Ctx() ctx: Context) {
     const query = ctx.query as unknown as Partial<Query & PageType>
-    const {userAgent, requestStatus, status, page = 1, size = 10} = query
+    const {userAgent, code, status, page = 1, size = 10} = query
 
     const params: Partial<Query> = {}
 
@@ -22,8 +22,8 @@ export class LogController {
       params.userAgent = new RegExp(userAgent, 'i') as any
     }
 
-    if (requestStatus) {
-      params.requestStatus = requestStatus
+    if (code) {
+      params.code = code
     }
 
     if (status !== undefined) {
@@ -63,7 +63,7 @@ export class LogController {
   }
 
   @Put('/log/:id')
-  async modify (@Param('id') id: string, log: Partial<Logs>) {
+  async modify (@Param('id') id: string, @Body() log: Partial<Logs>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,

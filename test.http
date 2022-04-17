@@ -42,3 +42,80 @@ content-type: application/json
   "name": "标签",
   "type": "vue"
 }
+
+### log
+GET http://localhost:3060/api/logs?page=1&size=10 HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3060/api/log HTTP/1.1
+content-type: application/json
+
+{
+  "ip":"192.168.1.129",
+  "userAgent":"Windows Chrome 98.89.4",
+  "time":"2022-04-15 22:37:10",
+  "url":"/api/article/12",
+  "code":200,
+  "status":0
+}
+
+###
+
+PUT http://localhost:3060/api/log/62583c4d0dce5f27563e2b45 HTTP/1.1
+content-type: application/json
+
+{
+  "status": 1
+}
+
+### message
+GET http://localhost:3060/api/messages?page=1&size=10 HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3060/api/message HTTP/1.1
+content-type: application/json
+
+{"message":"测试","replyContent":"","createTime":"2021-12-24 00:37:10","replyStatus":0,"status":1}
+
+###
+DELETE http://localhost:3060/api/message/625987e7c7e5e4fe693723ff HTTP/1.1
+Content-Type: application/json
+
+
+### resource
+GET http://localhost:3060/api/resources?page=1&size=10 HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3060/api/resource HTTP/1.1
+content-type: application/json
+
+{
+  "name": "vue",
+  "img": "",
+  "link": "11",
+  "classify": "vue",
+  "summary": "111"
+}
+
+### schedule
+GET http://localhost:3060/api/schedules?page=1&size=10 HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3060/api/schedule HTTP/1.1
+content-type: application/json
+
+{"id":"12132","name":"111","summary":"111","status":0,"spend":["2022-02-15","2022-02-20"]}
+
+### user
+GET http://localhost:3060/api/users?page=1&size=10 HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3060/api/register HTTP/1.1
+content-type: application/json
+
+{"account":"22222222","psw":"22222222","email":"1111"}

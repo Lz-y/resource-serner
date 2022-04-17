@@ -56,7 +56,7 @@ export enum ResponseCode {
 
 export type Query<T, K extends keyof T> = Partial<Pick<T, K>>
 
-export interface Article{
+export interface Article {
   id: string;
   title: string;
   classify: 'blog' | 'note' | 'daily';
@@ -79,15 +79,15 @@ export interface Logs {
   userAgent: string;
   url: string;
   requestTime: Date;
-  requestStatus: 200 | 401 | 402 | 404 | 500;
+  code: 200 | 401 | 402 | 404 | 500;
   status: LogStatus;
   deleted: boolean;
 }
 
 export interface Message {
-  title: string;
-  content: string;
-  publishTime: Date;
+  message: string;
+  replyContent: string;
+  createTime: Date;
   replyStatus: ReplyStatus;
   replyTime: Date;
   status: OrdinaryStatus;
@@ -143,6 +143,7 @@ export interface User {
   nickName: string;
   avatar: string;
   email: string;
+  gender: 0 | 1
   status: OrdinaryStatus;
   fristLogin: boolean;
   lastLoginTime: number;

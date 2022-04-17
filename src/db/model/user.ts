@@ -6,6 +6,7 @@ const userScheme = new Schema<User>({
   account: {unique: true, type: String, maxlength: 20, minlength: 8},
   psw: {type: String, maxlength: 10, minlength: 6, select: false},
   nickName: {type: String},
+  gender: Number,
   avatar: String,
   email: String,
   status: {type: Number, default: 1},

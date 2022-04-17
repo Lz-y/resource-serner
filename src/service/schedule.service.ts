@@ -15,10 +15,12 @@ export default class ScheduleService {
   async findAll (query: Partial<Query>, page: number, size: number) {
     const skip = (page - 1) * size
     try {
-      const data = await this.model.find(query).sort({createtime: -1}).limit(size).skip(skip).lean().exec()
+      const data = await this.model.find(query).select('-updateTime').sort({createtime: -1}).limit(size).skip(skip).lean().exec()
 
       const total = await this.model.count(query).exec()
-
+      data.forEach(item => {
+        item._id = item._id.toString() as any
+      })
       return {
         data,
         total

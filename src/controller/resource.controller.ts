@@ -62,7 +62,7 @@ export class ResourceController {
   }
 
   @Put('/resource/:id')
-  async modify (@Param('id') id: string, log: Partial<Resource>) {
+  async modify (@Param('id') id: string, @Body() resource: Partial<Resource>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
@@ -70,7 +70,7 @@ export class ResourceController {
       }
     }
     try {
-      await this.resourceService.updateById(id as any, log)
+      await this.resourceService.updateById(id as any, resource)
 
       return {
         code: ResponseCode.SUCCESS,

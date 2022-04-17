@@ -3,15 +3,15 @@ import {Schema, model} from "mongoose"
 import {Message} from '../../../types/global'
 
 const scheduleScheme = new Schema<Message>({
-  title: String,
-  content: {type: String, maxlength: 1000},
+  message: String,
+  replyContent: {type: String, maxlength: 1000},
   replyTime: Date,
   replyStatus: {type: Number, default: 0},
-  status: {type: Number, default: 0},
+  status: {type: Number, default: 1},
   deleted: {type: Boolean, default: false, select: false}
 }, {
   versionKey: false,
-  timestamps: {createdAt: 'publishTime', updatedAt: 'updateTime'},
+  timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'},
   id: true,
   toJSON: {virtuals: true},
   toObject: {virtuals: true}
