@@ -7,6 +7,7 @@ const scheduleScheme = new Schema<Schedule>({
   summary: String,
   spend: [Date],
   status: {type: Number, default: 0},
+  sequence: {type: Number, default: 0},
   deleted: {type: Boolean, default: false, select: false}
 }, {
   versionKey: false,

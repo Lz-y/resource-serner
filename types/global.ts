@@ -122,6 +122,7 @@ export interface Schedule {
   spend: Date[];
   status: ScheduleStatus;
   deleted: boolean;
+  sequence: number
 }
 
 export interface Dictionary {
