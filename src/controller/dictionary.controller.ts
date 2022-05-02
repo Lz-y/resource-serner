@@ -41,6 +41,38 @@ export class DictionaryController {
     }
   }
 
+  @Get('/dictionary')
+  async getOne (@Ctx() ctx: Context) {
+    const {type} = ctx.query as unknown as Partial<Query>
+
+    if (!type) {
+      return {
+        code: ResponseCode.NOTNULL,
+        msg: 'type 不能为空'
+      }
+    }
+    try {
+      const data = await this.dictionaryService.findByType(type)
+
+      if (data?.length === 0) {
+        return {
+          code: ResponseCode.NOTFOUND,
+          msg: '该字典不存在'
+        }
+      }
+      return {
+        code: ResponseCode.SUCCESS,
+        data
+      }
+    } catch (error) {
+      console.error(error)
+      return {
+        code: ResponseCode.ERROR,
+        msg: '服务端错误'
+      }
+    }
+  }
+
   @Post('/dictionary')
   async create (@Body() dict: Partial<Dictionary>) {
     try {

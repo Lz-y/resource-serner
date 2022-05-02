@@ -4,7 +4,7 @@ import {Dictionary} from '../../types/global'
 import DictionaryModel from '../db/model/dictionary'
 
 
-export type Query = Pick<Dictionary, 'name' | 'status'>
+export type Query = Pick<Dictionary, 'name' | 'type' | 'status'>
 
 @Service()
 export default class DictionaryService {
@@ -26,6 +26,16 @@ export default class DictionaryService {
         data,
         total
       }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async findByType(type: string) {
+    try {
+      const doc = await this.model.findOne({type}).lean().exec()
+      doc!._id = doc?._id.toString() as any
+      return doc?.children
     } catch (error) {
       throw error
     }
