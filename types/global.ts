@@ -97,11 +97,12 @@ export interface Message {
 export interface Project {
   name: string;
   img: string;
+  link: string;
+  classify: string;
   description: string;
   createTime: Date;
   runningTime: number;
   status: ProjectStatus;
-  deleted: boolean;
 }
 
 export interface Resource {
@@ -135,6 +136,7 @@ export interface Dictionary {
 }
 
 export interface KeyMap {
+  key: string
   label: string
   value: any
 }

@@ -119,3 +119,14 @@ POST http://localhost:3060/api/register HTTP/1.1
 content-type: application/json
 
 {"account":"22222222","psw":"22222222","email":"1111"}
+
+
+### project
+GET http://localhost:3060/api/projects?page=1&size=10 HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3060/api/project HTTP/1.1
+content-type: application/json
+
+{"name":"111","img":"/src/assets/logo.png","link":"111","classify":"vue","description":"111","runing":1}

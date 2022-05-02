@@ -5,10 +5,11 @@ import {Project} from '../../../types/global'
 const projectScheme = new Schema<Project>({
   name: String,
   img: String,
+  link: String,
+  classify: String,
   description: String,
   runningTime: Number,
-  status: {type: Number, default: 0},
-  deleted: {type: Boolean, default: false, select: false}
+  status: {type: Number, default: 0}
 }, {
   versionKey: false,
   timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'},

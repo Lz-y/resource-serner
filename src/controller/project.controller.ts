@@ -22,7 +22,7 @@ export class ProjectController {
       params.name = new RegExp(name, 'i') as any
     }
 
-    if (status !== undefined) {
+    if (status) {
       params.status = status
     }
     try {
@@ -58,7 +58,7 @@ export class ProjectController {
   }
 
   @Put('/project/:id')
-  async modify (@Param('id') id: string, log: Partial<Project>) {
+  async modify (@Param('id') id: string, @Body() log: Partial<Project>) {
     if (!id) {
       return {
         code: ResponseCode.NOTNULL,
